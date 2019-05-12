@@ -1,0 +1,33 @@
+body {
+  font: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.jumbotron {
+  color: white;
+  background-color: #586F7C;
+  padding-top: 5%;
+}
+.jumbotron h1 {
+  font-size: 400%;
+}
+
+#bottomJumbotron {
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.jumbotron p {
+  color: lightgray;
+}
+
+.navbar a {
+  color: gray;
+}
+
+#selection {
+  color: #109FCE;
+}
+
+.caption {
+  color: #109FCE;
+}
