@@ -26,53 +26,59 @@ right.src = "audio/right.mp3";
 left.src = "audio/left.mp3";
 down.src = "audio/down.mp3";
 
-while(false){
-
-}
-
 // create the snake
-let snake = [];
-snake[0] = {
-    x : 9 * box,
-    y : 10 * box
-};
+var snake = [];
 
 // create the food
-let food = {
-    x : Math.floor(Math.random()*17+1) * box,
-    y : Math.floor(Math.random()*15+3) * box
-}
+var food;
 
 // create the score var
-let score = 0;
+var score;
 
 //control the snake
-let d;
-
-document.addEventListener("keydown",direction);
+var d;
 
 // call draw function every 100 ms
-let game = setInterval(draw,100);
+var game;
+
+document.addEventListener("keydown", direction);
+
+function startSnake() {
+  snake = [];
+  snake[0] = {
+      x : 9 * box,
+      y : 10 * box
+  }
+  food = {
+      x : Math.floor(Math.random()*17+1) * box,
+      y : Math.floor(Math.random()*15+3) * box
+  }
+  score = 0;
+  d = null;
+
+  game = setInterval(draw, 100);
+}
+
 
 function direction(event){
     let key = event.keyCode;
-    if( key == 37 && d != "RIGHT"){
+    if( key == 37 && d != "RIGHT") {
         left.play();
         d = "LEFT";
-    }else if(key == 38 && d != "DOWN"){
+    } else if(key == 38 && d != "DOWN") {
         d = "UP";
         up.play();
-    }else if(key == 39 && d != "LEFT"){
+    } else if(key == 39 && d != "LEFT") {
         d = "RIGHT";
         right.play();
-    }else if(key == 40 && d != "UP"){
+    } else if(key == 40 && d != "UP") {
         d = "DOWN";
         down.play();
     }
 }
 
-// cheack collision function
-function collision(head,array){
+// check collision function
+function collision(head, array){
     for(let i = 0; i < array.length; i++){
         if(head.x == array[i].x && head.y == array[i].y){
             return true;
@@ -82,16 +88,16 @@ function collision(head,array){
 }
 
 // draw everything to the canvas
-function draw(){
+function draw(event){
 
-    ctx.drawImage(ground,0,0);
+    ctx.drawImage(ground, 0, 0);
 
-    for( let i = 0; i < snake.length ; i++){
+    for( let i = 0; i < snake.length; i++){
         ctx.fillStyle = ( i == 0 )? "green" : "lightgreen";
-        ctx.fillRect(snake[i].x,snake[i].y,box,box);
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
         ctx.strokeStyle = "darkgreen";
-        ctx.strokeRect(snake[i].x,snake[i].y,box,box);
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
     }
 
     ctx.drawImage(foodImg, food.x, food.y);
@@ -130,11 +136,14 @@ function draw(){
     if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
         clearInterval(game);
         dead.play();
+        ctx.fillStyle = "red";
+        ctx.font = "80px Changa one";
+        ctx.fillText("GAME OVER!", 1.75*box, 10*box);
     }
 
     snake.unshift(newHead);
 
     ctx.fillStyle = "white";
     ctx.font = "45px Changa one";
-    ctx.fillText(score,2*box,1.6*box);
+    ctx.fillText(score, 2*box, 1.6*box);
 }

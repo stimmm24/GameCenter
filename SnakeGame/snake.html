@@ -20,7 +20,7 @@
   }
   </style>
 </head>
-<body>
+<body onload="startSnake()">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -49,5 +49,7 @@
 
 <canvas id="snake" width="608" height="608"></canvas>
 <script src="snake.js"></script>
-
+<div class="col text-center">
+  <button type="button" class="btn btn-success" onclick="startSnake()">Restart Game</button>
+</div>
 </html>
